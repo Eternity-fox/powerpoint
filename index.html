@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《共产党宣言》穿越汇报 - 健康服务与管理专业</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap');
+
+        :root {
+            --primary-red: #E63946;
+            --deep-red: #9B2226;
+            --gold: #FFB703;
+            --dark-bg: #1D3557;
+            --light-bg: #F1FAEE;
+            --accent: #457B9D;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: #000;
+            color: #333;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 封面 - 漫画风格 */
+        .cover-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-slide::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(-50%, -50%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .cover-content {
+            z-index: 10;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--deep-red);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            transform: rotate(-2deg);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        .character-show {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .character-card {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 1.5rem;
+            border-radius: 20px;
+            width: 200px;
+            transform: rotate(-3deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .character-card:nth-child(2) {
+            transform: rotate(3deg);
+            margin-top: -20px;
+        }
+
+        .character-card:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .char-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .char-name {
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: var(--deep-red);
+        }
+
+        .char-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* 内容页通用 */
+        .content-slide {
+            background: var(--light-bg);
+            padding: 3rem 5rem;
+        }
+
+        .slide-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 4px solid var(--primary-red);
+            padding-bottom: 1rem;
+        }
+
+        .part-num {
+            background: var(--primary-red);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--dark-bg);
+            font-weight: 900;
+        }
+
+        .dialogue-box {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            border-left: 5px solid var(--accent);
+        }
+
+        .dialogue-box.marx {
+            border-left-color: var(--primary-red);
+            margin-left: 50px;
+        }
+
+        .dialogue-box.engels {
+            border-left-color: var(--accent);
+            margin-right: 50px;
+        }
+
+        .dialogue-box.speaker {
+            border-left-color: var(--gold);
+            background: #fffbeb;
+        }
+
+        .speaker-tag {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .marx .speaker-tag { background: #fee2e2; color: var(--deep-red); }
+        .engels .speaker-tag { background: #dbeafe; color: var(--accent); }
+        .speaker .speaker-tag { background: #fef3c7; color: #92400e; }
+
+        .dialogue-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, transparent 0%, var(--gold) 0%, var(--gold) 100%, transparent 100%);
+            background-size: 100% 40%;
+            background-repeat: no-repeat;
+            background-position: 0 90%;
+            font-weight: 700;
+            padding: 0 4px;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            vertical-align: middle;
+        }
+
+        /* 关键信息卡片 */
+        .key-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .key-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .key-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .key-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .key-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--dark-bg);
+            margin-bottom: 0.5rem;
+        }
+
+        .key-desc {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* 对比表格 */
+        .compare-table {
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .compare-table th {
+            background: var(--dark-bg);
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .compare-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .compare-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .fake-tag {
+            display: inline-block;
+            background: #fee2e2;
+            color: var(--deep-red);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* 金句页 */
+        .quote-slide {
+            background: linear-gradient(135deg, var(--deep-red) 0%, #1a1a2e 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .big-quote {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .quote-author {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* 中国与健康页 */
+        .china-slide {
+            background: linear-gradient(135deg, #de2910 0%, #8B0000 100%);
+            color: white;
+        }
+
+        .china-slide h2 {
+            color: white;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: var(--gold);
+        }
+
+        .time-point {
+            text-align: center;
+            width: 200px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .time-dot {
+            width: 60px;
+            height: 60px;
+            background: var(--gold);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--deep-red);
+        }
+
+        .time-year {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .time-event {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* 结尾自拍页 */
+        .ending-slide {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .selfie-frame {
+            width: 600px;
+            height: 400px;
+            background: white;
+            border-radius: 20px;
+            margin: 2rem auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            transform: rotate(-2deg);
+        }
+
+        .selfie-characters {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100%;
+            padding-bottom: 2rem;
+            gap: 2rem;
+        }
+
+        .selfie-person {
+            text-align: center;
+        }
+
+        .selfie-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .marx-avatar { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .speaker-avatar { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .engels-avatar { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+
+        .selfie-stick {
+            position: absolute;
+            bottom: -50px;
+            right: 100px;
+            width: 200px;
+            height: 10px;
+            background: #333;
+            transform: rotate(-30deg);
+            border-radius: 5px;
+        }
+
+        .final-slogan {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-top: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* 导航 */
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            color: var(--dark-bg);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 900;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-red);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: var(--gold);
+            transition: width 0.3s;
+            z-index: 1001;
+        }
+
+        /* 特效 */
+        .float-emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: sparkle 2s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 进度条 -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- 第1页：封面 -->
+    <div class="slide cover-slide active">
+        <div class="cover-content">
+            <div class="cover-badge">🎭 穿越剧汇报</div>
+            <h1>《共产党宣言》<br>穿越汇报</h1>
+            <p class="subtitle">健康服务与管理专业小组 · 2026年</p>
+            
+            <div class="character-show">
+                <div class="character-card">
+                    <div class="char-avatar">👴</div>
+                    <div class="char-name">马克思</div>
+                    <div class="char-desc">有点傲娇<br>穷困潦倒但思想富有</div>
+                </div>
+                <div class="character-card">
+                    <div class="char-avatar">🎩</div>
+                    <div class="char-name">恩格斯</div>
+                    <div class="char-desc">富二代但叛逆<br>幽默体贴</div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 3rem; font-size: 1.2rem; opacity: 0.9;">
+                📱 现代大学生主讲人 × 19世纪大思想家<br>
+                一场跨越时空的理论对话
+            </p>
+        </div>
+        
+        <!-- 漂浮装饰 -->
+        <div class="float-emoji" style="top: 10%; left: 10%;">📖</div>
+        <div class="float-emoji" style="top: 20%; right: 15%; animation-delay: 0.5s;">⚡</div>
+        <div class="float-emoji" style="bottom: 20%; left: 20%; animation-delay: 1s;">🌟</div>
+        <div class="float-emoji" style="bottom: 15%; right: 10%; animation-delay: 1.5s;">🔥</div>
+    </div>
+
+    <!-- 第2页：开场穿越 -->
+    <div class="slide content-slide">
+        <div class="slide-header">
+            <div class="part-num">🎬</div>
+            <h2>开场：穿越了！</h2>
+        </div>
+        
+        <div class="dialogue-box speaker">
+            <span class="speaker-tag">🎤 主讲人（拿着手机）</span>
+            <p class="dialogue-text">
+                哈喽大家好！我们是健康服务与管理专业小组。今天不做PPT干讲，我们请来了两位国际大V——<span class="highlight">马克思和恩格斯</span>！掌声有请！<br>
+                <span style="color: #666; font-size: 0.9rem;">（侧台）嗨，马老师，恩老师，这边！</span>
+            </p>
+        </div>
+
+        <div class="dialogue-box marx">
+            <span class="speaker-tag">🧔 马克思（拿着羽毛笔，一脸懵）</span>
+            <p class="dialogue-text">
+                这是哪儿？剧场？不是让我们去开同盟会吗？<br>
+                <span class="emoji">📱</span> 你看那小姑娘手里拿的是什么？会发光的板砖？
+            </p>
+        </div>
+
+        <div class="dialogue-box engels">
+            <span class="speaker-tag">🎩 恩格斯（对观众眨眼）</span>
+            <p class="dialogue-text">
+                老马，好像穿越了。<br>
+                行，但别太长，<span class="highlight">我和燕妮约了晚饭</span>。<br>
+                讲完还得回去写《资本论》第二卷呢。
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: rgba(230, 57, 70, 0.1); border-radius: 10px;">
+            <p style="font-size: 1.2rem; color: var(--deep-red); font-weight: 700;">
+                🎯 任务：快速过一遍《共产党宣言》，适合现代大学生理解！
+            </p>
+        </div>
+    </div>
+
+    <!-- 第3页：作者生平 -->
+    <div class="slide content-slide">
+        <div class="slide-header">
+            <div class="part-num">👥</div>
+            <h2>作者生平：富二代与穷酸记者的友谊</h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div class="dialogue-box marx" style="margin: 0;">
+                <span class="speaker-tag">🎂 卡尔·马克思 1818-1883</span>
+                <p class="dialogue-text">
+                    德国特里尔人。17岁写了篇作文《青年在选择职业时的考虑》，立志<span class="highlight">"为人类福利而劳动"</span>。<br><br>
+                    <span class="emoji">💸</span> 现在想想，这flag立得太早了，后来一辈子穷得叮当响。
+                </p>
+            </div>
+
+            <div class="dialogue-box engels" style="margin: 0;">
+                <span class="speaker-tag">💰 弗里德里希·恩格斯 1820-1895</span>
+                <p class="dialogue-text">
+                    家里开纺织厂的，<span class="highlight">标准富二代</span>。但看不惯资本家剥削工人，22岁跑到曼彻斯特跟工人混在一起。<br><br>
+                    后来遇到老马，一拍即合。
+                </p>
+            </div>
+        </div>
+
+        <div class="dialogue-box" style="margin-top: 2rem; background: #fef3c7; border-left-color: var(--gold);">
+            <span class="speaker-tag">💎 神仙友谊</span>
+            <p class="dialogue-text" style="text-align: center; font-size: 1.3rem;">
+                马克思：多亏他！我写《资本论》时穷得买不起面包，<span class="highlight">他就在曼彻斯特做生意赚钱养我，一干20年</span>。<br>
+                恩格斯：他说这叫"第二小提琴手"，其实是我的专属提款机。<br>
+                <span style="color: #666; font-size: 1rem;">主讲人：这友谊，比现在的CP还好磕！</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- 第4页：时代背景 -->
+    <div class="slide content-slide">
+        <div class="slide-header">
+            <div class="part-num">🏭</div>
+            <h2>时代背景：蒸汽机与打工人（1848年）</h2>
+        </div>
+
+        <div class="key-cards">
+            <div class="key-card">
+                <div class="key-icon">🏭</div>
+                <div class="key-title">生产力爆炸</div>
+                <div class="key-desc">工厂像雨后春笋，火车轮船满天飞。生产力比过去一切世代总和还大！</div>
+            </div>
+            <div class="key-card">
+                <div class="key-icon">😰</div>
+                <div class="key-title">工人崩溃</div>
+                <div class="key-desc">每天干16小时，住贫民窟，童工遍地。牛奶倒河里，工人饿肚子。</div>
+            </div>
+            <div class="key-card">
+                <div class="key-icon">📉</div>
+                <div class="key-title">经济危机</div>
+                <div class="key-desc">每隔几年就来一次危机。资本家宁肯毁掉商品也不给穷人！</div>
+            </div>
+            <div class="key-card">
+                <div class="key-icon">✊</div>
+                <div class="key-title">工人起义</div>
+                <div class="key-desc">法国里昂、英国宪章、德国西里西亚...一波接一波！</div>
+            </div>
+        </div>
+
+        <div class="dialogue-box engels" style="margin-top: 2rem;">
+            <span class="speaker-tag">🎯 写作契机</span>
+            <p class="dialogue-text">
+                当时工人缺乏理论指导，老是被带偏。所以<span class="highlight">"正义者同盟"</span>找我们写个纲领，说清楚共产党到底要干啥。<br>
+                <span class="emoji">📚</span> 于是，一本改变世界的小册子诞生了——《共产党宣言》！
+            </p>
+        </div>
+    </div>
+
+    <!-- 第5页：第一章 -->
+    <div class="slide content-slide">
+        <div class="slide-header">
+            <div class="part-num">1️⃣</div>
+            <h2>第一章：资产阶级，你也有今天！</h2>
+        </div>
+
+        <div class="dialogue-box marx">
+            <span class="speaker-tag">👻 惊悚开场</span>
+            <p class="dialogue-text" style="font-size: 1.4rem; font-style: italic; color: var(--deep-red);">
+                "一个幽灵，共产主义的幽灵，在欧洲游荡。"
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+            <div class="dialogue-box engels" style="margin: 0;">
+                <span class="speaker-tag">✅ 承认贡献</span>
+                <p class="dialogue-text">
+                    资产阶级曾经很革命！打破封建，开拓世界市场，生产力大爆炸。
+                </p>
+            </div>
+            <div class="dialogue-box marx" style="margin: 0; border-left-color: #dc2626;">
+                <span class="speaker-tag">❌ 但是！</span>
+                <p class="dialogue-text">
+                    资本主义自己作死。危机一来，工人失业。<span class="highlight">资产阶级亲手打造了推翻自己的武器——无产阶级！</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="dialogue-box speaker" style="margin-top: 2rem; text-align: center;">
+            <span class="speaker-tag">💡 主讲人总结</span>
+            <p class="dialogue-text" style="font-size: 1.3rem;">
+                <span class="highlight">"两个必然"</span>：资产阶级的灭亡和无产阶级的胜利是同样不可避免的！<br>
+                <span class="emoji">⚰️</span> 简单说，资本家的棺材板，是你们自己钉的！
+            </p>
+        </div>
+    </div>
+
+    <!-- 第6页：第二章 -->
+    <div class="slide content-slide">
+        <div class="slide-header">
+            <div class="part-num">2️⃣</div>
+            <h2>第二章：别瞎说，我们不抢你的牙刷！</h2>
+        </div>
+
+        <div class="dialogue-box marx" style="background: #fee2e2;">
+            <span class="speaker-tag">😤 马克思（激动站起）</span>
+            <p class="dialogue-text">
+                胡说八道！谁造的谣？共产党人没有自己的特殊利益，就是无产阶级的先锋队。<br><br>
+                我们说的<span class="highlight">"消灭私有制"</span>，是要消灭用资本剥削人的制度，<span style="color: var(--deep-red); font-weight: 900;">不是抢你家的锅碗瓢盆、牙刷毛巾！</span>
+            </p>
+        </div>
+
+        <div class="dialogue-box engels">
+            <span class="speaker-tag">🌰 举个例子</span>
+            <p class="dialogue-text">
+                如果一个人靠<span class="highlight">出租房子收租</span>过活，这叫剥削；如果他自己住，那就是个人财产。我们只动前者，不动后者。
+            </p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 15px; margin-top: 2rem; text-align: center;">
+            <p style="font-size: 1.5rem; font-weight: 900; margin-bottom: 1rem;">🌟 终极目标</p>
+            <p style="font-size: 1.3rem; font-style: italic;">
+                "每个人的自由发展是一切人的自由发展的条件"
+            </p>
+            <p style="margin-top: 1rem; opacity: 0.9;">让每个人都能活成自己想要的样子，而不是给资本当螺丝钉！</p>
+        </div>
+    </div>
+
+    <!-- 第7页：第三章 -->
+    <div class="slide content-slide">
+        <div class="slide-header">
+            <div class="part-num">3️⃣</div>
+            <h2>第三章：山寨社会主义大起底</h2>
+        </div>
+
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">流派</th>
+                    <th style="width: 35%;">特征</th>
+                    <th style="width: 40%;">批判</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="fake-tag">封建社会主义</span></td>
+                    <td>倒台的封建贵族骂资本家，装同情工人</td>
+                    <td>披着羊皮的狼，其实想复辟封建制度</td>
+                </tr>
+                <tr>
+                    <td><span class="fake-tag">小资社会主义</span></td>
+                    <td>看到贫富差距，想回到手工业时代</td>
+                    <td>开历史倒车，西斯蒙第为代表</td>
+                </tr>
+                <tr>
+                    <td><span class="fake-tag">德国"真正的"社会主义</span></td>
+                    <td>把法国社会主义翻译成晦涩的黑格尔黑话</td>
+                    <td>满口"人的本质""异化"，不谈现实斗争，给专制政府当帮凶</td>
+                </tr>
+                <tr>
+                    <td><span class="fake-tag">空想社会主义</span></td>
+                    <td>圣西门、傅立叶设计理想社区</td>
+                    <td>想法很好，但指望资本家掏钱、富人发善心，结果一个也没成</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="dialogue-box speaker" style="margin-top: 2rem;">
+            <span class="speaker-tag">🎯 区别所在</span>
+            <p class="dialogue-text" style="text-align: center; font-size: 1.2rem;">
+                科学社会主义 vs 空想社会主义：<span class="highlight">我们找到了一条现实的路，而不是做梦！</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- 第8页：第四章 -->
+    <div class="slide content-slide">
+        <div class="slide-header">
+            <div class="part-num">4️⃣</div>
+            <h2>第四章：策略大师的自我修养</h2>
+        </div>
+
+        <div class="key-cards" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="key-card" style="text-align: left; border-left: 5px solid #e63946;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇫🇷</div>
+                <div class="key-title">法国</div>
+                <div class="key-desc">和社会主义民主党联合，但随时批判他们的空谈</div>
+            </div>
+            <div class="key-card" style="text-align: left; border-left: 5px solid #457b9d;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇨🇭</div>
+                <div class="key-title">瑞士</div>
+                <div class="key-desc">支持激进派，但知道他们成分复杂</div>
+            </div>
+            <div class="key-card" style="text-align: left; border-left: 5px solid #ffb703;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇵🇱</div>
+                <div class="key-title">波兰</div>
+                <div class="key-desc">支持把土地革命当作民族解放条件的政党</div>
+            </div>
+            <div class="key-card" style="text-align: left; border-left: 5px solid #1d3557;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇩🇪</div>
+                <div class="key-title">德国（重点）</div>
+                <div class="key-desc">支持资产阶级反封建，但"一分钟也不忽略"教育工人</div>
+            </div>
+        </div>
+
+        <div class="dialogue-box marx" style="margin-top: 2rem; background: #1d3557; color: white; border-left-color: var(--gold);">
+            <span class="speaker-tag" style="background: rgba(255,255,255,0.2); color: white;">🔥 不断革命</span>
+            <p class="dialogue-text" style="font-size: 1.2rem;">
+                等推翻封建之后，工人就能立刻接着斗资产阶级！这就是<span style="color: var(--gold); font-weight: 900;">"不断革命"</span>思想。
+            </p>
+        </div>
+    </div>
+
+    <!-- 第9页：金句口号 -->
+    <div class="slide quote-slide">
+        <div style="z-index: 10;">
+            <p style="font-size: 4rem; margin-bottom: 2rem;">✊</p>
+            <p class="big-quote">
+                全世界无产者，<br>联合起来！
+            </p>
+            <p class="quote-author">Proletarier aller Länder, vereinigt euch!</p>
+            
+            <div style="margin-top: 4rem; background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 1.2rem; opacity: 0.9;">
+                    主讲人：燃爆了！这句话现在还是很多人的屏保呢！<br>
+                    <span style="font-size: 2rem;">📱</span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- 装饰 -->
+        <div class="sparkle" style="top: 20%; left: 20%;"></div>
+        <div class="sparkle" style="top: 30%; right: 25%; animation-delay: 0.5s;"></div>
+        <div class="sparkle" style="bottom: 30%; left: 30%; animation-delay: 1s;"></div>
+        <div class="sparkle" style="bottom: 20%; right: 20%; animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- 第10页：中国与健康 -->
+    <div class="slide china-slide content-slide">
+        <div class="slide-header" style="border-bottom-color: var(--gold);">
+            <div class="part-num" style="background: var(--gold); color: var(--deep-red);">🇨🇳</div>
+            <h2>第七章：中国与健康管理</h2>
+        </div>
+
+        <div class="dialogue-box" style="background: rgba(255,255,255,0.95); margin-bottom: 2rem;">
+            <span class="speaker-tag" style="background: #fee2e2; color: var(--deep-red);">🖋️ 真理的味道</span>
+            <p class="dialogue-text">
+                1920年，陈望道先生在老家翻译《宣言》，太专心了，<span class="highlight">吃粽子蘸墨汁</span>，还说"真理的味道非常甜"。<br>
+                <span style="color: #666;">后来这本书影响了毛泽东、周恩来，中国共产党就照着我们的理论，干出了一番大事业。</span>
+            </p>
+        </div>
+
+        <div class="timeline">
+            <div class="time-point">
+                <div class="time-dot">1920</div>
+                <div class="time-year">陈望道译《宣言》</div>
+                <div class="time-event">首个中文全译本<br>真理的味道</div>
+            </div>
+            <div class="time-point">
+                <div class="time-dot">1921</div>
+                <div class="time-year">中共成立</div>
+                <div class="time-event">以马克思主义为指导<br>干出一番大事业</div>
+            </div>
+            <div class="time-point">
+                <div class="time-dot">2026</div>
+                <div class="time-year">马克思主义中国化</div>
+                <div class="time-event">毛泽东思想→习近平新时代<br>中国特色社会主义思想</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; border: 2px solid var(--gold);">
+            <h3 style="color: var(--gold); margin-bottom: 1rem; text-align: center;">🏥 与健康服务管理的联系</h3>
+            <p style="text-align: center; font-size: 1.2rem; line-height: 1.8;">
+                <span class="highlight" style="background: var(--gold); color: var(--deep-red); padding: 2px 8px;">"为绝大多数人谋利益"</span> 
+                就是你们的核心思想！<br>
+                在健康领域就是 <span style="font-size: 1.4rem; font-weight: 900;">"以人民健康为中心"</span><br>
+                不能光想着赚钱，得想着怎么让每个人都能看得起病、活得健康！
+            </p>
+        </div>
+    </div>
+
+    <!-- 第11页：专业应用 -->
+    <div class="slide content-slide">
+        <div class="slide-header">
+            <div class="part-num">🏥</div>
+            <h2>专业应用：理论不是教条，是行动的指南</h2>
+        </div>
+
+        <div class="dialogue-box engels" style="background: #dbeafe;">
+            <span class="speaker-tag">🎓 恩格斯寄语</span>
+            <p class="dialogue-text" style="font-size: 1.3rem;">
+                健康是自由发展的前提，<span class="highlight">一个人病歪歪的，还谈什么自由？</span>你们这专业很有意义！<br><br>
+                记住，<span style="color: var(--deep-red); font-weight: 900;">理论不是教条，是行动的指南</span>。把我们的道理用到你们的健康事业上，就是最好的继承。
+            </p>
+        </div>
+
+        <div class="key-cards" style="margin-top: 2rem;">
+            <div class="key-card">
+                <div class="key-icon">❤️</div>
+                <div class="key-title">价值立场</div>
+                <div class="key-desc">以人民健康为中心，而非利润最大化</div>
+            </div>
+            <div class="key-card">
+                <div class="key-icon">⚖️</div>
+                <div class="key-title">解决矛盾</div>
+                <div class="key-desc">医疗资源不均 vs 人民需求增长</div>
+            </div>
+            <div class="key-card">
+                <div class="key-icon">👴</div>
+                <div class="key-title">应对老龄化</div>
+                <div class="key-desc">智慧医养与老龄社会治理</div>
+            </div>
+            <div class="key-card">
+                <div class="key-icon">🌍</div>
+                <div class="key-title">人类命运共同体</div>
+                <div class="key-desc">全球公共卫生治理的中国方案</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第12页：结尾自拍 -->
+    <div class="slide ending-slide">
+        <div style="z-index: 10;">
+            <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1rem;">📸 合影留念</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">
+                马克思：时间不早了，我和燕妮的约会要迟到了！<br>
+                恩格斯：那咱们怎么回去？还穿越吗？
+            </p>
+
+            <div class="selfie-frame">
+                <div class="selfie-characters">
+                    <div class="selfie-person">
+                        <div class="selfie-avatar marx-avatar">🧔</div>
+                        <p style="color: #333; font-weight: 700;">马克思</p>
+                    </div>
+                    <div class="selfie-person">
+                        <div class="selfie-avatar speaker-avatar">🎤</div>
+                        <p style="color: #333; font-weight: 700;">主讲人</p>
+                    </div>
+                    <div class="selfie-person">
+                        <div class="selfie-avatar engels-avatar">🎩</div>
+                        <p style="color: #333; font-weight: 700;">恩格斯</p>
+                    </div>
+                </div>
+                <div class="selfie-stick"></div>
+                <div style="position: absolute; top: 20px; right: 20px; background: #333; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">
+                    2026.03.18
+                </div>
+            </div>
+
+            <p style="font-size: 1.2rem; margin: 1rem 0;">
+                <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px;">
+                    来，喊"全世界无产者"——
+                </span>
+            </p>
+            
+            <p class="final-slogan">全世界无产者，联合起来！咔嚓！📷</p>
+            
+            <p style="margin-top: 3rem; font-size: 1.5rem; font-weight: 700;">
+                谢谢大家！<span style="font-size: 2rem;">🎉</span>
+            </p>
+        </div>
+
+        <!-- 漂浮装饰 -->
+        <div class="float-emoji" style="top: 10%; left: 5%;">📸</div>
+        <div class="float-emoji" style="top: 15%; right: 10%; animation-delay: 0.3s;">✨</div>
+        <div class="float-emoji" style="bottom: 20%; left: 8%; animation-delay: 0.6s;">🎊</div>
+        <div class="float-emoji" style="bottom: 25%; right: 5%; animation-delay: 0.9s;">🌟</div>
+    </div>
+
+    <!-- 导航控制 -->
+    <div class="slide-counter">
+        <span id="current">1</span> / <span id="total">12</span>
+    </div>
+    
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevSlide()">←</button>
+        <button class="nav-btn" onclick="nextSlide()">→</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+
+        document.getElementById('total').textContent = totalSlides;
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (n >= totalSlides) currentSlide = 0;
+            else if (n < 0) currentSlide = totalSlides - 1;
+            else currentSlide = n;
+            
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current').textContent = currentSlide + 1;
+            updateProgress();
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // 键盘导航
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // 触摸滑动支持
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) nextSlide();
+            if (touchEndX - touchStartX > 50) prevSlide();
+        });
+
+        // 初始化进度条
+        updateProgress();
+    </script>
+</body>
+</html>
